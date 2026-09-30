@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Donutella.Application/Donutella.Application.csproj" />
+  <Project Path="Donutella.Domain/Donutella.Domain.csproj" />
+  <Project Path="Donutella.Infrastructure/Donutella.Infrastructure.csproj" />
+  <Project Path="Donutella.Web/Donutella.Web.csproj" />
+</Solution>

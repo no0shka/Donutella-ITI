@@ -1,0 +1,146 @@
+﻿@model Donutella.Web.Models.ViewModels.Product.ProductViewModel
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h1>Add Product</h1>
+
+<form asp-action="SaveAdd"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name"
+               class="form-label">
+        </label>
+
+        <input asp-for="Name"
+               class="form-control" />
+
+        <span asp-validation-for="Name"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="Description"
+               class="form-label">
+        </label>
+
+        <textarea asp-for="Description"
+                  class="form-control"></textarea>
+
+        <span asp-validation-for="Description"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="Price"
+               class="form-label">
+        </label>
+
+        <input asp-for="Price"
+               class="form-control" />
+
+        <span asp-validation-for="Price"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="Stock"
+               class="form-label">
+        </label>
+
+        <input asp-for="Stock"
+               class="form-control" />
+
+        <span asp-validation-for="Stock"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="SubCategoryId"
+               class="form-label">
+            SubCategory
+        </label>
+
+        <select asp-for="SubCategoryId"
+                asp-items="Model.SubCategories"
+                class="form-select">
+
+            <option value="">
+                -- Select SubCategory --
+            </option>
+
+        </select>
+
+        <span asp-validation-for="SubCategoryId"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <!-- Main Image -->
+    <div class="mb-3">
+        <label asp-for="MainImageFile"
+               class="form-label">
+            Main Image
+        </label>
+
+        <input asp-for="MainImageFile"
+               type="file"
+               class="form-control"
+               accept="image/*" />
+
+        <span asp-validation-for="MainImageFile"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <!-- More Images -->
+    <div class="mb-3">
+        <label asp-for="ImageFiles"
+               class="form-label">
+            More Images
+        </label>
+
+        <input asp-for="ImageFiles"
+               type="file"
+               class="form-control"
+               multiple
+               accept="image/*" />
+
+        <span asp-validation-for="ImageFiles"
+              class="text-danger">
+        </span>
+    </div>
+
+
+    <button type="submit"
+            class="btn btn-primary">
+        Save
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

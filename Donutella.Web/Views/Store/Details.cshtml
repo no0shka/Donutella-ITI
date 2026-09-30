@@ -1,0 +1,371 @@
+﻿@model Donutella.Web.Models.ViewModels.Product.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container py-5">
+
+    <!-- ========================= -->
+    <!-- PRODUCT -->
+    <!-- ========================= -->
+
+    <div class="row g-5">
+
+        <!-- Main Image -->
+        <div class="col-md-6">
+
+            <img src="@Model.Image"
+                 alt="@Model.Name"
+                 class="img-fluid rounded shadow-sm"
+                 style="width:100%; height:450px; object-fit:cover;" />
+
+        </div>
+
+
+        <!-- Product Info -->
+        <div class="col-md-6">
+
+            <p class="text-muted">
+                @Model.SubCategoryName
+            </p>
+
+            <h1 class="fw-bold">
+                @Model.Name
+            </h1>
+
+            <p class="text-muted fs-5">
+                @Model.Description
+            </p>
+
+            <h2 class="fw-bold text-primary">
+                @Model.Price.ToString("C")
+            </h2>
+
+            <p>
+                <strong>Stock:</strong>
+                @Model.Stock
+            </p>
+
+            <p>
+                <strong>Rating:</strong>
+                @Model.AverageRating.ToString("0.0") / 5
+            </p>
+
+            <p>
+                <strong>Reviews:</strong>
+                @Model.ReviewCount
+            </p>
+
+            <div class="mt-4 d-flex gap-2">
+
+                <form asp-controller="Cart"
+                      asp-action="Add"
+                      method="post"
+                      class="d-inline">
+                    <input type="hidden"
+                           name="productId"
+                           value="@Model.Id" />
+                    <input type="hidden"
+                           name="returnUrl"
+                           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                    @if (Model.Stock > 0)
+                    {
+                        <button type="submit"
+                                class="btn btn-primary btn-lg">
+                            Add to Cart
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button"
+                                class="btn btn-secondary btn-lg"
+                                disabled>
+                            Out of Stock
+                        </button>
+                    }
+                </form>
+
+                <!-- Wishlist -->
+
+                <form asp-controller="Wishlist"
+                      asp-action="Add"
+                      method="post"
+                      class="d-inline">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="productId"
+                           value="@Model.Id" />
+
+                    <input type="hidden"
+                           name="returnUrl"
+                           value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+
+                    <button type="submit"
+                            class="btn btn-outline-danger btn-lg">
+
+                        ♡ Wishlist
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MORE IMAGES -->
+    <!-- ========================= -->
+    @if (Model.ProductImages != null && Model.ProductImages.Any())
+    {
+        <div class="mt-5">
+
+            <h3 class="fw-bold mb-3">
+                More Images
+            </h3>
+
+            <div class="d-flex flex-wrap gap-3">
+
+                @foreach (var image in Model.ProductImages)
+                {
+                    <img src="@image"
+                         alt="@Model.Name"
+                         width="150"
+                         height="150"
+                         class="rounded shadow-sm"
+                         style="object-fit:cover;" />
+                }
+
+            </div>
+
+        </div>
+    }
+
+
+    <!-- ========================= -->
+    <!-- CUSTOMER REVIEWS -->
+    <!-- ========================= -->
+
+    <div class="mt-5">
+
+        <h3 class="fw-bold mb-4">
+            Customer Reviews
+        </h3>
+
+
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="card mb-3 shadow-sm">
+
+                    <div class="card-body">
+
+                        <!-- Rating -->
+
+                        <div class="mb-2">
+
+                            <strong>Rating:</strong>
+
+                            <span class="text-warning">
+
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= review.Rating)
+                                    {
+                                        <span>★</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">☆</span>
+                                    }
+                                }
+
+                            </span>
+
+                            <span class="ms-2">
+                                @review.Rating / 5
+                            </span>
+
+                        </div>
+
+
+                        <!-- Comment -->
+
+                        <p class="mb-0">
+                            @review.Comment
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">
+                No reviews yet.
+            </p>
+        }
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- WRITE A REVIEW -->
+    <!-- ========================= -->
+
+    <div class="mt-5">
+
+        <h3 class="fw-bold mb-4">
+            Write a Review
+        </h3>
+
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <form asp-controller="Review"
+                          asp-action="Create"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+
+                        <!-- Product ID -->
+
+                        <input type="hidden"
+                               name="productId"
+                               value="@Model.Id" />
+
+
+                        <!-- Rating -->
+
+                        <div class="mb-3">
+
+                            <label for="rating"
+                                   class="form-label fw-bold">
+
+                                Rating
+
+                            </label>
+
+                            <select id="rating"
+                                    name="rating"
+                                    class="form-select"
+                                    required>
+
+                                <option value="">
+                                    Choose rating
+                                </option>
+
+                                <option value="5">
+                                    ⭐⭐⭐⭐⭐ 5
+                                </option>
+
+                                <option value="4">
+                                    ⭐⭐⭐⭐ 4
+                                </option>
+
+                                <option value="3">
+                                    ⭐⭐⭐ 3
+                                </option>
+
+                                <option value="2">
+                                    ⭐⭐ 2
+                                </option>
+
+                                <option value="1">
+                                    ⭐ 1
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Comment -->
+
+                        <div class="mb-3">
+
+                            <label for="comment"
+                                   class="form-label fw-bold">
+
+                                Your Comment
+
+                            </label>
+
+                            <textarea id="comment"
+                                      name="comment"
+                                      class="form-control"
+                                      rows="4"
+                                      maxlength="1000"
+                                      placeholder="Write your comment..."
+                                      required></textarea>
+
+                        </div>
+
+
+                        <!-- Submit -->
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            Submit Review
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+
+                Please
+
+                <a asp-controller="Account"
+                   asp-action="Login"
+                   asp-route-returnUrl="@($"{Context.Request.Path}{Context.Request.QueryString}")"
+                   class="alert-link">
+
+                    Login
+
+                </a>
+
+                to write a review.
+
+            </div>
+        }
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- BACK -->
+    <!-- ========================= -->
+
+    <div class="mt-4">
+
+        <a asp-action="Products"
+           class="btn btn-secondary">
+
+            Back to Products
+
+        </a>
+
+    </div>
+
+</div>

@@ -1,0 +1,77 @@
+@model Donutella.Domain.Entities.Order
+
+@{
+    ViewData["Title"] = $"Order #{Model.Id}";
+}
+
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-4">Order #@Model.Id</h1>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body">
+            <p><strong>Date:</strong> @Model.OrderDate.ToLocalTime().ToString("g")</p>
+            <p>
+                <strong>Status:</strong>
+                <span class="badge @(Model.Status == OrderStatus.Cancelled ? "bg-danger" : Model.Status == OrderStatus.Pending ? "bg-warning text-dark" : "bg-success")">
+                    @Model.Status
+                </span>
+            </p>
+            <p><strong>Total:</strong> <span class="fw-bold text-primary">@Model.TotalPrice.ToString("C")</span></p>
+            <hr />
+            <p><strong>Name:</strong> @Model.CustomerName</p>
+            <p><strong>Address:</strong> @Model.Address</p>
+            <p class="mb-0"><strong>Phone:</strong> @Model.Phone</p>
+        </div>
+    </div>
+
+    <h4 class="fw-bold mb-3">Items</h4>
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-0">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td style="width:80px;">
+                                @if (!string.IsNullOrEmpty(item.Product?.Image))
+                                {
+                                    <img src="@item.Product!.Image"
+                                         alt="@(item.Product?.Name ?? "Product")"
+                                         class="rounded"
+                                         style="width:60px; height:60px; object-fit:cover;" />
+                                }
+                            </td>
+                            <td class="fw-bold">@(item.Product?.Name ?? $"Product #{item.ProductId}")</td>
+                            <td>@item.Price.ToString("C")</td>
+                            <td>@item.Quantity</td>
+                            <td>@((item.Price * item.Quantity).ToString("C"))</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2">
+        <a asp-action="Index" class="btn btn-secondary">Back to Orders</a>
+        @if (Model.Status == OrderStatus.Pending)
+        {
+            <form asp-action="Cancel" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-danger"
+                        onclick="return confirm('Cancel this order?');">Cancel Order</button>
+            </form>
+        }
+    </div>
+</div>

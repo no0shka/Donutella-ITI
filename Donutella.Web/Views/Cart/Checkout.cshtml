@@ -1,0 +1,100 @@
+@model Donutella.Web.Models.ViewModels.Cart.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+    var cart = (Donutella.Domain.Entities.Cart?)ViewBag.Cart;
+    decimal total = 0;
+    if (cart?.CartItems != null)
+    {
+        foreach (var i in cart.CartItems)
+            total += (i.Product?.Price ?? 0) * i.Quantity;
+    }
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Checkout</h1>
+        <p class="text-muted">Enter your delivery details to place the order</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-lg-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3">
+                    <h5 class="fw-bold mb-0">Delivery Details</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Checkout" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="CustomerName" class="form-label fw-semibold">Name</label>
+                            <input asp-for="CustomerName" class="form-control" placeholder="e.g. Ahmed Mohamed" />
+                            <span asp-validation-for="CustomerName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Address" class="form-label fw-semibold">Address</label>
+                            <textarea asp-for="Address" class="form-control" rows="3"
+                                      placeholder="Street, building, apartment, city"></textarea>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Phone" class="form-label fw-semibold">Phone</label>
+                            <input asp-for="Phone" class="form-control" placeholder="e.g. 01001234567" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex gap-2 pt-2">
+                            <button type="submit" class="btn btn-success">Place Order</button>
+                            <a asp-action="Index" class="btn btn-secondary">Back to Cart</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @if (cart != null && cart.CartItems.Any())
+        {
+            <div class="col-lg-5">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="fw-bold mb-0">Order Summary</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        @foreach (var item in cart.CartItems)
+                        {
+                            <div class="d-flex gap-3 align-items-center mb-3">
+                                @if (!string.IsNullOrEmpty(item.Product?.Image))
+                                {
+                                    <img src="@item.Product!.Image"
+                                         alt="@(item.Product?.Name ?? "Product")"
+                                         class="rounded"
+                                         style="width:60px; height:60px; object-fit:cover;" />
+                                }
+                                <div class="flex-grow-1">
+                                    <div class="fw-bold small">@(item.Product?.Name ?? $"Product #{item.ProductId}")</div>
+                                    <div class="text-muted small">x @item.Quantity</div>
+                                </div>
+                                <div class="fw-bold small">
+                                    @(((item.Product?.Price ?? 0) * item.Quantity).ToString("C"))
+                                </div>
+                            </div>
+                        }
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Total</span>
+                            <h5 class="fw-bold text-primary mb-0">@total.ToString("C")</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

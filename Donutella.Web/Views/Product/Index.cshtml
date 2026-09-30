@@ -1,0 +1,90 @@
+@model IEnumerable<Donutella.Web.Models.ViewModels.Product.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Products</h1>
+
+        <a asp-action="New" class="btn btn-primary">
+            Add Product
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No products found.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped">
+
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>SubCategory</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(product.Image))
+                            {
+                                <img src="@product.Image"
+                                     alt="@product.Name"
+                                     width="80"
+                                     height="80"
+                                     style="object-fit: cover;" />
+                            }
+                        </td>
+
+                        <td>@product.Name</td>
+
+                        <td>@product.Description</td>
+
+                        <td>@product.Price.ToString("C")</td>
+
+                        <td>@product.Stock</td>
+
+                        <td>@product.SubCategoryName</td>
+
+                        <td>
+                            <a asp-action="Details"
+                               asp-route-id="@product.Id"
+                               class="btn btn-info btn-sm">
+                                Details
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@product.Id"
+                               class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@product.Id"
+                               class="btn btn-danger btn-sm">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
+
+</div>

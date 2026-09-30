@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+}
+
+<div class="container d-flex justify-content-center align-items-center"
+     style="min-height: 70vh;">
+
+    <div class="card shadow-sm border-0 text-center p-5"
+         style="max-width: 650px; width: 100%; border-radius: 20px;">
+
+        <div style="font-size: 65px;">
+            👋
+        </div>
+
+        <h1 class="fw-bold mt-3">
+            Ready to leave?
+        </h1>
+
+        <p class="text-muted fs-5 mt-3">
+            Are you sure you want to logout from your Donutella account?
+        </p>
+
+        <div class="mt-4 d-flex justify-content-center gap-3">
+
+            <!-- Logout -->
+            <form asp-controller="Account"
+                  asp-action="Logout"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="btn btn-danger btn-lg px-4">
+                    Logout
+                </button>
+
+            </form>
+
+            <!-- Cancel -->
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="btn btn-outline-secondary btn-lg px-4">
+                Cancel
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,542 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+@{
+    ViewData["Title"] = "Donutella";
+}
+
+<!-- =========================
+     SECTION 1 - HERO
+========================= -->
+<section class="hero-section py-5"
+         style="background: linear-gradient(135deg, #fff5f7, #fff);">
+
+    <div class="container py-5">
+
+        <div class="row align-items-center g-5">
+
+            <!-- Text -->
+            <div class="col-lg-6">
+
+                <span class="badge rounded-pill bg-danger-subtle text-danger px-3 py-2 mb-3">
+                    Freshly Made With Love
+                </span>
+
+                <h1 class="display-3 fw-bold mb-4">
+                    Sweet Moments,
+                    <span class="text-danger">
+                        Made Delicious.
+                    </span>
+                </h1>
+
+                <p class="lead text-muted mb-4">
+                    Discover delicious desserts, handcrafted sweets,
+                    and irresistible treats made specially for your sweetest moments.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+
+                    <a asp-controller="Store"
+                       asp-action="Products"
+                       class="btn btn-danger btn-lg px-4">
+                        Shop Now
+                    </a>
+
+                    <a asp-controller="Store"
+                       asp-action="Products"
+                       class="btn btn-outline-dark btn-lg px-4">
+                        Explore Desserts
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Image -->
+            <div class="col-lg-6 text-center">
+
+                <img src="/images/Products/hore.jpg"
+                     alt="Donutella Desserts"
+                     class="img-fluid rounded-4 shadow"
+                     style="max-height:500px; object-fit:cover;">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SECTION 2 - CATEGORIES
+========================= -->
+<section class="py-5">
+
+    <div class="container py-4">
+
+        <div class="text-center mb-5">
+
+            <span class="text-danger fw-semibold">
+                EXPLORE
+            </span>
+
+            <h2 class="fw-bold mt-2">
+                Our Sweet Categories
+            </h2>
+
+            <p class="text-muted">
+                Find something delicious for every craving.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Category 1 -->
+            <div class="col-md-3">
+
+                <a asp-controller="Store"
+                   asp-action="Products"
+                   class="text-decoration-none">
+
+                    <div class="card border-0 shadow-sm h-100 text-center rounded-4 overflow-hidden">
+
+                        <img src="/images/Products/Cakes.jpg"
+                             class="card-img-top"
+                             style="height:220px; object-fit:cover;"
+                             alt="Cakes">
+
+                        <div class="card-body py-4">
+
+                            <h5 class="fw-bold text-dark">
+                                Cakes
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Beautiful & delicious cakes
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Category 2 -->
+            <div class="col-md-3">
+
+                <a asp-controller="Store"
+                   asp-action="Products"
+                   class="text-decoration-none">
+
+                    <div class="card border-0 shadow-sm h-100 text-center rounded-4 overflow-hidden">
+
+                        <img src="/images/Products/Dounts.jpg"
+                             class="card-img-top"
+                             style="height:220px; object-fit:cover;"
+                             alt="Donuts">
+
+                        <div class="card-body py-4">
+
+                            <h5 class="fw-bold text-dark">
+                                Donuts
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Soft, fresh & irresistible
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Category 3 -->
+            <div class="col-md-3">
+
+                <a asp-controller="Store"
+                   asp-action="Products"
+                   class="text-decoration-none">
+
+                    <div class="card border-0 shadow-sm h-100 text-center rounded-4 overflow-hidden">
+
+                        <img src="/images/Products/cupcakes.jpg"
+                             class="card-img-top"
+                             style="height:220px; object-fit:cover;"
+                             alt="Cupcakes">
+
+                        <div class="card-body py-4">
+
+                            <h5 class="fw-bold text-dark">
+                                Cupcakes
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Small treats, big happiness
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- Category 4 -->
+            <div class="col-md-3">
+
+                <a asp-controller="Store"
+                   asp-action="Products"
+                   class="text-decoration-none">
+
+                    <div class="card border-0 shadow-sm h-100 text-center rounded-4 overflow-hidden">
+
+                        <img src="/images/Products/Dessertsjpg.jpg"
+                             class="card-img-top"
+                             style="height:220px; object-fit:cover;"
+                             alt="Desserts">
+
+                        <div class="card-body py-4">
+
+                            <h5 class="fw-bold text-dark">
+                                Desserts
+                            </h5>
+
+                            <p class="text-muted mb-0">
+                                Sweetness in every bite
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SECTION 3 - FEATURED
+========================= -->
+<section class="py-5"
+         style="background:#fff8f9;">
+
+    <div class="container py-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+
+            <div>
+
+                <span class="text-danger fw-semibold">
+                    OUR FAVORITES
+                </span>
+
+                <h2 class="fw-bold mt-2">
+                    Featured Desserts
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Our most loved treats, made fresh for you.
+                </p>
+
+            </div>
+
+            <a asp-controller="Store"
+               asp-action="Products"
+               class="btn btn-outline-dark">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- Product 1 -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+
+                    <img src="/images/Products/Red Velvet Cake.jpg"
+                         class="card-img-top"
+                         style="height:280px; object-fit:cover;"
+                         alt="Red Velvet">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between">
+
+                            <h5 class="fw-bold">
+                                Red Velvet Cake
+                            </h5>
+
+                            <span class="fw-bold text-danger">
+                                $40
+                            </span>
+
+                        </div>
+
+                        <p class="text-muted">
+                            Rich, creamy and perfectly soft.
+                        </p>
+
+                        <a asp-controller="Store"
+                           asp-action="Products"
+                           class="btn btn-dark w-100">
+                            Shop Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 2 -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+
+                    <img src="/images/Products/Chocolate Donut.jpg"
+                         class="card-img-top"
+                         style="height:280px; object-fit:cover;"
+                         alt="Chocolate Donut">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between">
+
+                            <h5 class="fw-bold">
+                                Chocolate Donut
+                            </h5>
+
+                            <span class="fw-bold text-danger">
+                                $15
+                            </span>
+
+                        </div>
+
+                        <p class="text-muted">
+                            Chocolate heaven in every bite.
+                        </p>
+
+                        <a asp-controller="Store"
+                           asp-action="Products"
+                           class="btn btn-dark w-100">
+                            Shop Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Product 3 -->
+            <div class="col-md-4">
+
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+
+                    <img src="/images/Products/Vanilla Cupcake.jpg"
+                         class="card-img-top"
+                         style="height:280px; object-fit:cover;"
+                         alt="Cupcake">
+
+                    <div class="card-body p-4">
+
+                        <div class="d-flex justify-content-between">
+
+                            <h5 class="fw-bold">
+                                Vanilla Cupcake
+                            </h5>
+
+                            <span class="fw-bold text-danger">
+                                $12
+                            </span>
+
+                        </div>
+
+                        <p class="text-muted">
+                            Soft vanilla with creamy frosting.
+                        </p>
+
+                        <a asp-controller="Store"
+                           asp-action="Products"
+                           class="btn btn-dark w-100">
+                            Shop Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SECTION 4 - WHY DONUTELLA
+========================= -->
+<section class="py-5">
+
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+
+            <span class="text-danger fw-semibold">
+                WHY DONUTELLA?
+            </span>
+
+            <h2 class="fw-bold mt-2">
+                Made For Sweet Moments
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        🍰
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Freshly Made
+                    </h5>
+
+                    <p class="text-muted">
+                        Every dessert is prepared with care and fresh ingredients.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        ❤️
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Made With Love
+                    </h5>
+
+                    <p class="text-muted">
+                        We put passion into every dessert we create.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        🚚
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Fast Delivery
+                    </h5>
+
+                    <p class="text-muted">
+                        Your favorite sweets delivered fresh to your door.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="text-center p-4">
+
+                    <div class="fs-1 mb-3">
+                        ⭐
+                    </div>
+
+                    <h5 class="fw-bold">
+                        Quality First
+                    </h5>
+
+                    <p class="text-muted">
+                        Delicious products with quality you can taste.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SECTION 5 - CTA
+========================= -->
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="rounded-4 p-5 text-center"
+             style="background:linear-gradient(135deg,#212529,#343a40);">
+
+            <h2 class="text-white fw-bold mb-3">
+                Ready For Something Sweet?
+            </h2>
+
+            <p class="text-white-50 fs-5 mb-4">
+                Treat yourself to something delicious today.
+            </p>
+
+            <a asp-controller="Store"
+               asp-action="Products"
+               class="btn btn-light btn-lg px-5">
+                Start Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

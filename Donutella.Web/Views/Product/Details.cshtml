@@ -1,0 +1,206 @@
+@model Donutella.Web.Models.ViewModels.Product.ProductViewModel
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+
+    <h1>Product Details</h1>
+
+    <!-- ========================= -->
+    <!-- PRODUCT DETAILS -->
+    <!-- ========================= -->
+
+    <div class="card mt-4" style="max-width: 28rem;">
+
+        <img src="@Model.Image"
+             class="card-img-top"
+             alt="@Model.Name"
+             style="height: 300px; object-fit: cover;" />
+
+        <div class="card-body">
+
+            <h5 class="card-title">
+                @Model.Name
+            </h5>
+
+            <p class="card-text">
+                @Model.Description
+            </p>
+
+            <p>
+                <strong>Price:</strong>
+                @Model.Price.ToString("C")
+            </p>
+
+            <p>
+                <strong>Stock:</strong>
+                @Model.Stock
+            </p>
+
+            <p>
+                <strong>SubCategory:</strong>
+                @Model.SubCategoryName
+            </p>
+
+            <p>
+                <strong>Rating:</strong>
+                @Model.AverageRating.ToString("0.0") / 5
+            </p>
+
+            <p>
+                <strong>Reviews:</strong>
+                @Model.ReviewCount
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MORE IMAGES -->
+    <!-- ========================= -->
+    @if (Model.ProductImages != null && Model.ProductImages.Any())
+    {
+        <div class="mt-4">
+
+            <h4>More Images</h4>
+
+            <div class="d-flex flex-wrap gap-3">
+
+                @foreach (var image in Model.ProductImages)
+                {
+                    <img src="@image"
+                         alt="@Model.Name"
+                         width="150"
+                         height="150"
+                         style="object-fit: cover;" />
+                }
+
+            </div>
+
+        </div>
+    }
+
+
+    <!-- ========================= -->
+    <!-- REVIEWS -->
+    <!-- ========================= -->
+
+    <div class="mt-5">
+
+        <h4>Reviews</h4>
+
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            foreach (var review in Model.Reviews)
+            {
+                <div class="card mb-3">
+
+                    <div class="card-body">
+
+                        <p>
+                            <strong>Rating:</strong>
+                            @review.Rating / 5
+                        </p>
+
+                        <p>
+                            <strong>Comment:</strong>
+                            @review.Comment
+                        </p>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <p>
+                No reviews yet.
+            </p>
+        }
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ADMIN ACTIONS -->
+    <!-- ========================= -->
+
+    <div class="mt-4">
+
+        <!-- Wishlist -->
+
+        <form asp-controller="Wishlist"
+              asp-action="Add"
+              method="post"
+              class="d-inline">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="productId"
+                   value="@Model.Id" />
+
+            <input type="hidden"
+                   name="returnUrl"
+                   value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+
+                ♡ Wishlist
+
+            </button>
+
+        </form>
+
+
+        <!-- My Wishlist -->
+
+        <a asp-controller="Wishlist"
+           asp-action="Index"
+           class="btn btn-outline-danger">
+
+            My Wishlist
+
+        </a>
+
+
+        <!-- Edit -->
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-warning">
+
+            Edit
+
+        </a>
+
+
+        <!-- Delete -->
+
+        <a asp-action="Delete"
+           asp-route-id="@Model.Id"
+           class="btn btn-danger">
+
+            Delete
+
+        </a>
+
+
+        <!-- Back -->
+
+        <a asp-action="Index"
+           class="btn btn-secondary">
+
+            Back
+
+        </a>
+
+    </div>
+
+</div>

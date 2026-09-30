@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Donutella.Web.Models.ViewModels.Wishlist.WishlistViewModel>
+
+@{
+    ViewData["Title"] = "My Wishlist";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">My Wishlist</h1>
+        <p class="text-muted">
+            Products you saved for later
+        </p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+
+            <div style="font-size: 60px;">
+                ♡
+            </div>
+
+            <h3 class="mt-3">Your Wishlist is Empty</h3>
+
+            <p class="text-muted">
+                You haven't added any products to your wishlist yet.
+            </p>
+
+            <a asp-controller="Store"
+               asp-action="Products"
+               class="btn btn-dark mt-3">
+                Continue Shopping
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+
+                    <div class="card h-100 shadow-sm border-0">
+
+                        <a asp-controller="Product"
+                           asp-action="Details"
+                           asp-route-id="@item.ProductId">
+
+                            <img src="@item.ProductImage"
+                                 class="card-img-top"
+                                 alt="@item.ProductName"
+                                 style="height:250px; object-fit:cover;" />
+
+                        </a>
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h5 class="card-title">
+                                @item.ProductName
+                            </h5>
+
+                            <p class="fw-bold mt-2">
+                                @item.ProductPrice.ToString("C")
+                            </p>
+
+                            <div class="mt-auto">
+
+                                <form asp-controller="Wishlist"
+                                      asp-action="Remove"
+                                      method="post">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="productId"
+                                           value="@item.ProductId" />
+
+                                    <button type="submit"
+                                            class="btn btn-outline-danger w-100">
+                                        Remove 
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+
+</div>
